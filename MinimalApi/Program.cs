@@ -24,24 +24,24 @@ app.MapPost("/Clients", async (Client client, AppDbContext dbContext) =>
     });
 
 app.MapPut("/Clients/{id}", async (int id, Client client, AppDbContext dbContext) =>
-{
-    dbContext.Entry(client).State = EntityState.Modified;
-    await dbContext.SaveChangesAsync();
+    {
+        dbContext.Entry(client).State = EntityState.Modified;
+        await dbContext.SaveChangesAsync();
 
-    return client;
-});
+        return client;
+    });
 
 app.MapDelete("/Clients/{id}", async (int id, AppDbContext dbContext) =>
-{
-    var client = await dbContext.Clients.FirstOrDefaultAsync(a => a.Id == id);
-    
-    if(client != null)
     {
-        dbContext.Clients.Remove(client);
-        await dbContext.SaveChangesAsync();
-    }
-    return;
-});
+        var client = await dbContext.Clients.FirstOrDefaultAsync(a => a.Id == id);
+    
+        if(client != null)
+        {
+            dbContext.Clients.Remove(client);
+            await dbContext.SaveChangesAsync();
+        }
+        return;
+    });
 
 app.UseSwaggerUI();
 
